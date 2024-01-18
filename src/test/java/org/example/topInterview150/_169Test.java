@@ -31,15 +31,32 @@ class _169Test {
                           .findFirst()
                           .get();
         }
+        // 놓친 힌트: n//2 이상을 차진한다.
+        // 굳이 정렬시킬 필요 없었고, value가 n/2보다만 크면 됐다.
 
+        public int mooreVoting(int[] nums) {
+            int count = 0;
+            int candidate = 0;
 
+            for (int n : nums) {
+                if (count == 0) {
+                    candidate = n;
+                }
+                if (candidate == n) {
+                    count++;
+                } else {
+                    count--;
+                }
+            }
+            return candidate;
+        }
     }
 
     @MethodSource("tc")
     @ParameterizedTest
     void run(int[] nums, int k) {
         Solution cut = new Solution();
-        int x = cut.majorityElement(nums);
+        int x = cut.mooreVoting(nums);
         assertThat(x).isEqualTo(k);
     }
 
